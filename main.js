@@ -3,17 +3,21 @@ function round(playerChoice,compChoice){
     if (playerChoice == 0 && compChoice == 2){
         console.log("You win because " + convertToWord(playerChoice) + 
                             " beats " + convertToWord(compChoice) + ".");
+        return 1;
     }
     else if (playerChoice==compChoice){
         console.log("It's a tie.");
+        return 0;
     }
     else if (playerChoice>compChoice){
         console.log("You win because " + convertToWord(playerChoice) + 
                             " beats " + convertToWord(compChoice) + ".");
+        return 1;
     }
     else{
         console.log("You lose because " + convertToWord(compChoice) + 
         " beats " + convertToWord(playerChoice) + ".");
+        return 0;
     }
 }
 
@@ -40,5 +44,20 @@ function convertToWord(choice){
             return "scissor";
         default:
             console.log("Error, choice could not be converted");
+    }
+}
+
+function getCompChoice(){
+    return Math.floor(Math.random()*3);
+}
+
+function game(){
+    let gameCounter = 0;
+    while (gameCounter < 5){
+        gameCounter++;
+        let compChoice = getCompChoice();
+        let playerChoice = window.prompt("Type rock, paper or scissor to choose your option.")
+        playerChoice = playerChoice.toLowerCase();
+        console.log(playerChoice);
     }
 }
