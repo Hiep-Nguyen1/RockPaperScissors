@@ -51,13 +51,28 @@ function getCompChoice(){
     return Math.floor(Math.random()*3);
 }
 
+function checkValidChoice(playerChoice){
+    switch(playerChoice){
+        case "rock": return true;
+        case "paper": return true;
+        case "scissor": return true;
+        default:
+            console.log("Error, choice invalid");
+            return false;
+    }
+}
+
 function game(){
     let gameCounter = 0;
     while (gameCounter < 5){
-        gameCounter++;
+        let validChoice = false;
+        while (validChoice == false){
+            let playerChoice = window.prompt("Type rock, paper or scissor to choose your option.")
+            playerChoice = playerChoice.toLowerCase();
+            validChoice = checkValidChoice(playerChoice);
+        }
         let compChoice = getCompChoice();
-        let playerChoice = window.prompt("Type rock, paper or scissor to choose your option.")
-        playerChoice = playerChoice.toLowerCase();
-        console.log(playerChoice);
+
+        gameCounter++;
     }
 }
