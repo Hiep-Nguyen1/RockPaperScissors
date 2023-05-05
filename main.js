@@ -2,8 +2,13 @@ function round(playerChoice,compChoice){
     playerChoice = convertToNum(playerChoice);
     if (playerChoice == 0 && compChoice == 2){
         console.log("You win because " + convertToWord(playerChoice) + 
-                            " beats " + convertToWord(compChoice) + ".");
+                        " beats " + convertToWord(compChoice) + ".");
         return 1;
+    }
+    else if (playerChoice == 2 && compChoice == 0){
+        console.log("You lose because " + convertToWord(compChoice) + 
+                        " beats " + convertToWord(playerChoice) + ".");
+        return 0;        
     }
     else if (playerChoice==compChoice){
         console.log("It's a tie.");
@@ -11,12 +16,12 @@ function round(playerChoice,compChoice){
     }
     else if (playerChoice>compChoice){
         console.log("You win because " + convertToWord(playerChoice) + 
-                            " beats " + convertToWord(compChoice) + ".");
+                        " beats " + convertToWord(compChoice) + ".");
         return 1;
     }
     else{
         console.log("You lose because " + convertToWord(compChoice) + 
-        " beats " + convertToWord(playerChoice) + ".");
+                        " beats " + convertToWord(playerChoice) + ".");
         return 0;
     }
 }
@@ -64,15 +69,20 @@ function checkValidChoice(playerChoice){
 
 function game(){
     let gameCounter = 0;
+    let playerWin = 0;
     while (gameCounter < 5){
         let validChoice = false;
+        let playerChoice;
         while (validChoice == false){
-            let playerChoice = window.prompt("Type rock, paper or scissor to choose your option.")
+            playerChoice = window.prompt("Type rock, paper or scissor to choose your option.")
             playerChoice = playerChoice.toLowerCase();
             validChoice = checkValidChoice(playerChoice);
         }
         let compChoice = getCompChoice();
-
+        console.log("player: " + playerChoice + "\ncomputer: " + convertToWord(compChoice));
+        playerWin += round(playerChoice,compChoice);
         gameCounter++;
     }
+
+    console.log(`You won ${playerWin} times!`);
 }
