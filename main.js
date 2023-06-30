@@ -86,3 +86,10 @@ function game(){
 
     console.log(`You won ${playerWin} times!`);
 }
+
+function getPlayerChoice(event) {
+    return document.querySelector(`button[class="${event.class}"`)
+}
+
+const btns = document.querySelectorAll('button');
+btns.forEach(btn => btn.addEventListener('click', round(getPlayerChoice,getCompChoice())));
