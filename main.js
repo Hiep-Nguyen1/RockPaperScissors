@@ -1,5 +1,5 @@
 function round(playerChoice){
-    playerChoice = playerChoice.target.className;
+    playerChoice = playerChoice.target.className; //sets player choice to selected button class
     let compChoice = getCompChoice();
     playerChoice = convertToNum(playerChoice);
     if (playerChoice == 0 && compChoice == 2){
@@ -58,17 +58,6 @@ function getCompChoice(){
     return Math.floor(Math.random()*3);
 }
 
-/*function checkValidChoice(playerChoice){
-    switch(playerChoice){
-        case "rock": return true;
-        case "paper": return true;
-        case "scissor": return true;
-        default:
-            console.log("Error, choice invalid");
-            return false;
-    }
-}*/
-
 /*function game(){
     let gameCounter = 0;
     let playerWin = 0;
@@ -91,5 +80,6 @@ function getCompChoice(){
 
 
 const btns = document.querySelectorAll('button');
-console.log(btns);
+
 btns.forEach(btn => btn.addEventListener('click', round));
+
