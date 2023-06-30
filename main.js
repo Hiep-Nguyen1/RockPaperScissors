@@ -5,41 +5,35 @@ function round(playerChoice){
     playerChoice = convertToNum(playerChoice);
 
     if (playerChoice == 0 && compChoice == 2){ //compares number values to check who wins. 0 = rock, 1 = paper, 2 = scissor
-        console.log("You win because " + convertToWord(playerChoice) + 
-                        " beats " + convertToWord(compChoice) + ".");
+
+        result.textContent = "You win because " + convertToWord(playerChoice) + 
+                        " beats " + convertToWord(compChoice) + ".";
         playerWin++;
     }
     else if (playerChoice == 2 && compChoice == 0){
-        console.log("You lose because " + convertToWord(compChoice) + 
-                        " beats " + convertToWord(playerChoice) + ".");
+        result.textContent = "You lose because " + convertToWord(compChoice) + 
+                        " beats " + convertToWord(playerChoice) + ".";
         compWin++;        
     }
     else if (playerChoice==compChoice){
-        console.log("It's a tie.");
+        result.textContent = "It's a tie.";
     }
     else if (playerChoice>compChoice){
-        console.log("You win because " + convertToWord(playerChoice) + 
-                        " beats " + convertToWord(compChoice) + ".");
+        result.textContent = "You win because " + convertToWord(playerChoice) + 
+                        " beats " + convertToWord(compChoice) + "."
         playerWin++;
     }
     else{
-        console.log("You lose because " + convertToWord(compChoice) + 
-                        " beats " + convertToWord(playerChoice) + ".");
+        result.textContent = "You lose because " + convertToWord(compChoice) + 
+                        " beats " + convertToWord(playerChoice) + "."
         compWin++;
     }
 
-    console.log("Player Wins: " + playerWin);
-    console.log("compWin Wins: " + compWin);
+    playerScore.textContent = playerWin;
+    compScore.textContent = compWin;
 
-    if (playerWin >=5){
-        console.log("Congratulations!! You won, would you like to play again?");
-        playerWin = 0;
-        compWin = 0;
-    }
-    else if(compWin >=5){
-        console.log("The computer beat you to 5. Would you like to try again?");
-        playerWin = 0;
-        compWin = 0;
+    if(playerWin >=5 || compWin >=5){
+        gameEnd();
     }
 
     return 0;
@@ -75,9 +69,39 @@ function getCompChoice(){
     return Math.floor(Math.random()*3);
 }
 
-const btns = document.querySelectorAll('button');
+function resetGame(event) {
+    playerWin=0;
+    compWin=0;
+    playerScore.textContent = playerWin;
+    compScore.textContent = compWin;
+    result.textContent = "";
+    btns.forEach(btn => btn.addEventListener('click',round));
+    resultContainer.removeChild(tryAgain);
+}
+
+function gameEnd(){
+    btns.forEach(btn => btn.removeEventListener('click', round));
+
+    if (playerWin >=5){
+        result.textContent = "Congratulations!! You beat the computer to 5, would you like to play again?";
+    }
+    else if(compWin >=5){
+        result.textContent = "The computer beat you to 5. Would you like to try again?";
+    }    
+
+    resultContainer.appendChild(tryAgain);
+    tryAgain.addEventListener('click',resetGame,{once:true});
+}
+
+const btns = document.querySelectorAll('.playerChoice > button');
 
 btns.forEach(btn => btn.addEventListener('click', round));
 
 let playerWin = 0;
 let compWin = 0;
+const result = document.querySelector('.result');
+const playerScore = document.querySelector('.player > .score');
+const compScore = document.querySelector('.computer > .score');
+const tryAgain = document.createElement('button');
+tryAgain.textContent = "Try Again?";
+const resultContainer = document.querySelector('.resultContainer');
