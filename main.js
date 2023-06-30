@@ -1,4 +1,6 @@
-function round(playerChoice,compChoice){
+function round(playerChoice){
+    playerChoice = playerChoice.target.className;
+    let compChoice = getCompChoice();
     playerChoice = convertToNum(playerChoice);
     if (playerChoice == 0 && compChoice == 2){
         console.log("You win because " + convertToWord(playerChoice) + 
@@ -56,7 +58,7 @@ function getCompChoice(){
     return Math.floor(Math.random()*3);
 }
 
-function checkValidChoice(playerChoice){
+/*function checkValidChoice(playerChoice){
     switch(playerChoice){
         case "rock": return true;
         case "paper": return true;
@@ -65,9 +67,9 @@ function checkValidChoice(playerChoice){
             console.log("Error, choice invalid");
             return false;
     }
-}
+}*/
 
-function game(){
+/*function game(){
     let gameCounter = 0;
     let playerWin = 0;
     while (gameCounter < 5){
@@ -85,11 +87,9 @@ function game(){
     }
 
     console.log(`You won ${playerWin} times!`);
-}
+}*/
 
-function getPlayerChoice(event) {
-    return document.querySelector(`button[class="${event.class}"`)
-}
 
 const btns = document.querySelectorAll('button');
-btns.forEach(btn => btn.addEventListener('click', round(getPlayerChoice,getCompChoice())));
+console.log(btns);
+btns.forEach(btn => btn.addEventListener('click', round));
